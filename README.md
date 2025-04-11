@@ -7,19 +7,17 @@ Project Title: Party Tracker
 Description:
 Party Tracker is a web application designed to help users discover live and upcoming parties, concerts, and local events in real-time. The platform connects event-goers with clubs, organizers, and communities, offering a space for both public and private event listings. The app also features a dedicated student section for college parties and campus events. Clubs and organizers can promote their events for free . 
 
-<<<<<<< HEAD
 
 
 Problem Statement:
  Many people often miss out on events simply because they don’t know where to look or aren't connected to the right social circles. Event discovery is fragmented across social media, WhatsApp groups, and word-of-mouth. At the same time, small clubs, local artists, and student organizers lack an easy and cost-effective way to promote their events.
-=======
+
 Problem Statement:
  Many people often miss out on events simply because they don’t know where to look or aren't connected to the right social circles. Event discovery is fragmented across social media, WhatsApp groups, and word-of-mouth. At the same time, small clubs, local artists, and student organizers lack an easy and cost-effective way to promote their events.
  
  
 Existing Applications:
 ●   	Instagram / Facebook Events: Popular but cluttered and not focused solely on nightlife or real-time discovery.
->>>>>>> 6be0688a4df741e5fd95bb2d9d5d184f7987ce6a
 
 
 
@@ -96,22 +94,6 @@ Tools and Software Used:
 
 
 
-<<<<<<< HEAD
-Conclusion:
- Party Tracker stands out as a youth-oriented, real-time, community-driven platform for discovering and promoting events. By bridging the gap between organizers and attendees, and offering features tailored for clubs and students, Party Tracker creates a vibrant ecosystem that goes beyond traditional event platforms. It not only solves a real problem but also has strong monetization and scalability potential, making it a perfect capstone project with real-world relevance. 
-
-                   Daily Plan
-=======
-
-
-
-
-Conclusion:
- Party Tracker stands out as a youth-oriented, real-time, community-driven platform for discovering and promoting events. By bridging the gap between organizers and attendees, and offering features tailored for clubs and students, Party Tracker creates a vibrant ecosystem that goes beyond traditional event platforms. It not only solves a real problem but also has strong monetization and scalability potential, making it a perfect capstone project with real-world relevance. 
-
-
-                                 Daily Plan
->>>>>>> 6be0688a4df741e5fd95bb2d9d5d184f7987ce6a
 
 Phase 1: Planning & Design (Days 1–5)
  
