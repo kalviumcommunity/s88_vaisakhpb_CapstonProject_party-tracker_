@@ -4,8 +4,10 @@
 Project Title: Party Tracker
 Description:
 Party Tracker is a web application designed to help users discover live and upcoming parties, concerts, and local events in real-time. The platform connects event-goers with clubs, organizers, and communities, offering a space for both public and private event listings. The app also features a dedicated student section for college parties and campus events. Clubs and organizers can promote their events for free . 
+
 Problem Statement:
  Many people often miss out on events simply because they don’t know where to look or aren't connected to the right social circles. Event discovery is fragmented across social media, WhatsApp groups, and word-of-mouth. At the same time, small clubs, local artists, and student organizers lack an easy and cost-effective way to promote their events.
+ 
  
 Existing Applications:
 ●   	Instagram / Facebook Events: Popular but cluttered and not focused solely on nightlife or real-time discovery.
@@ -21,6 +23,7 @@ Existing Applications:
 
 
 Uniqueness of the Project:
+
 ●   	Real-time Event Feed with location-based filtering.
 
 
@@ -47,11 +50,6 @@ Uniqueness of the Project:
 
 ●       User-submitted Events with admin verification to ensure quality.
  
-
-
-
-
-
 
 
 
@@ -98,64 +96,12 @@ Tools and Software Used:
 
 
 
-Party Tracker vs Existing Apps:
- 
-Feature
-Party Tracker
-Instagram/Facebook
-BookMyShow
-Meetup
-Real-time Event Discovery
-Yes
-Limited
-Yes
-No
- 
- 
- 
- 
- 
-Student/Private Event Support
-Yes
-No
-No
-No
-Free Promotion for Organizers
-Yes
-No
-No
-Yes (limited)
-Club Directory
-Yes
-No
-No
-No
-Collaboration/Partnership
-Yes
-No
-No
-Yes
-QR Code Check-in
-Optional
-No
-Yes (limited)
-No
-
-
-
-
-
-
-
 
 Conclusion:
  Party Tracker stands out as a youth-oriented, real-time, community-driven platform for discovering and promoting events. By bridging the gap between organizers and attendees, and offering features tailored for clubs and students, Party Tracker creates a vibrant ecosystem that goes beyond traditional event platforms. It not only solves a real problem but also has strong monetization and scalability potential, making it a perfect capstone project with real-world relevance. 
 
-References:-
-https://www.meetup.com
-https://in.bookmyshow.com
-https://www.facebook.com
- Daily Plan
+
+                                 Daily Plan
 
 Phase 1: Planning & Design (Days 1–5)
  
