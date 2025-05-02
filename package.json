@@ -1,0 +1,30 @@
+{
+  "name": "s88_vaisakhpb_capstonproject_party-tracker_",
+  "version": "1.0.0",
+  "description": "Project Title: Party Tracker",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalviumcommunity/s88_vaisakhpb_CapstonProject_party-tracker_.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalviumcommunity/s88_vaisakhpb_CapstonProject_party-tracker_/issues"
+  },
+  "homepage": "https://github.com/kalviumcommunity/s88_vaisakhpb_CapstonProject_party-tracker_#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.14.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
