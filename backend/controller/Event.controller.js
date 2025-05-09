@@ -3,7 +3,7 @@ import Event from '../models/Event.model.js'
 export const getEvent=async(req,res)=>{
     try{
         const events =await Event.find({});
-        res.status(200).json({sucess:true, data:events,message:"sucessfully luanched🚀"});
+        res.status(200).json({success:true, data:events,message:"sucessfully luanched🚀"});
     }catch(error){
         console.error("error in fetching the users",error.message);
         res.status(500).json({sucess:false,message:"Server Error"});    
