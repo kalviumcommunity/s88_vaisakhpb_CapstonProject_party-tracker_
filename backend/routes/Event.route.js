@@ -5,11 +5,4 @@ import express from "express"
 
     router.get("/", getEvent)
 
-    // router.post("/", createEvent);
-
-    // router.put("/:_id", updateEvent);
-
-    // router.delete("/:_id", deleteEvent);
-
-
     export default router;
