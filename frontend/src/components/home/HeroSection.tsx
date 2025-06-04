@@ -138,7 +138,7 @@ const HeroSection: React.FC = () => {
               
               <div className="relative md:w-48">
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" />
-                <input 
+                <input
                   type="date" 
                   className="input pl-10 w-full"
                 />

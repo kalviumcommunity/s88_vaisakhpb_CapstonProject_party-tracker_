@@ -121,8 +121,10 @@ const EventsPage: React.FC = () => {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-4 flex-grow">
               <div className="relative flex-grow max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" />
+                <label htmlFor="event-search" className="sr-only">Search events</label>
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" aria-hidden="true" />
                 <input 
+                  id="event-search"
                   type="text"
                   name="search"
                   placeholder="Search events"
@@ -135,11 +137,14 @@ const EventsPage: React.FC = () => {
               <button 
                 className="flex items-center gap-2 text-zinc-300 hover:text-white bg-zinc-800 px-4 py-2 rounded-lg transition-colors"
                 onClick={() => setShowFilters(!showFilters)}
+                aria-expanded={showFilters ? true : false}
+                aria-controls="advanced-filters"
+                title="Toggle filter options"
               >
-                <SlidersHorizontal className="h-4 w-4" />
+                <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
                 Filters
                 {(filters.location || filters.category || filters.date) && (
-                  <span className="bg-purple-500 text-white text-xs px-2 py-0.5 rounded-full">
+                  <span className="bg-purple-500 text-white text-xs px-2 py-0.5 rounded-full" aria-label={`${[filters.location, filters.category, filters.date].filter(Boolean).length} active filters`}>
                     {[filters.location, filters.category, filters.date].filter(Boolean).length}
                   </span>
                 )}
@@ -149,8 +154,10 @@ const EventsPage: React.FC = () => {
                 <button 
                   className="text-zinc-400 hover:text-white text-sm flex items-center gap-1"
                   onClick={clearFilters}
+                  title="Clear all filters"
+                  aria-label="Clear all filters"
                 >
-                  <X className="h-3 w-3" />
+                  <X className="h-3 w-3" aria-hidden="true" />
                   Clear filters
                 </button>
               )}
@@ -158,7 +165,9 @@ const EventsPage: React.FC = () => {
             
             <div className="flex items-center gap-3">
               <div>
+                <label htmlFor="sort-select" className="sr-only">Sort events</label>
                 <select 
+                  id="sort-select"
                   name="sort"
                   className="input h-10"
                   value={filters.sort}
@@ -169,18 +178,24 @@ const EventsPage: React.FC = () => {
                 </select>
               </div>
               
-              <div className="bg-zinc-800 rounded-lg flex">
+              <div className="bg-zinc-800 rounded-lg flex" role="group" aria-label="View options">
                 <button 
                   className={`p-2 rounded-l-lg ${isGridView ? 'bg-purple-600 text-white' : 'text-zinc-400 hover:text-white'}`}
                   onClick={() => setIsGridView(true)}
+                  aria-label="Grid view"
+                  aria-pressed="false"
+                  title="Grid view"
                 >
-                  <Grid className="h-5 w-5" />
+                  <Grid className="h-5 w-5" aria-hidden="true" />
                 </button>
                 <button 
                   className={`p-2 rounded-r-lg ${!isGridView ? 'bg-purple-600 text-white' : 'text-zinc-400 hover:text-white'}`}
                   onClick={() => setIsGridView(false)}
+                  aria-label="List view"
+                  aria-pressed="false"
+                  title="List view"
                 >
-                  <List className="h-5 w-5" />
+                  <List className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -188,10 +203,12 @@ const EventsPage: React.FC = () => {
           
           {/* Advanced Filters */}
           {showFilters && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 pb-2">
+            <div id="advanced-filters" className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 pb-2">
               <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" />
+                <label htmlFor="location-input" className="sr-only">Filter by location</label>
+                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" aria-hidden="true" />
                 <input 
+                  id="location-input"
                   type="text"
                   name="location"
                   placeholder="Location"
@@ -202,18 +219,23 @@ const EventsPage: React.FC = () => {
               </div>
               
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" />
+                <label htmlFor="date-input" className="sr-only">Filter by date</label>
+                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" aria-hidden="true" />
                 <input 
+                  id="date-input"
                   type="date"
                   name="date"
                   className="input h-10 pl-10 w-full"
                   value={filters.date}
                   onChange={handleFilterChange}
+                  aria-label="Select date"
                 />
               </div>
               
               <div>
+                <label htmlFor="category-select" className="sr-only">Filter by category</label>
                 <select 
+                  id="category-select"
                   name="category"
                   className="input h-10 w-full"
                   value={filters.category}
@@ -232,10 +254,10 @@ const EventsPage: React.FC = () => {
       </div>
       
       {/* Events Listing */}
-      <section className="py-12">
+      <section className="py-12" aria-label="Events listing">
         <div className="container mx-auto px-4">
           {filteredEvents.length === 0 ? (
-            <div className="text-center py-16">
+            <div className="text-center py-16" role="alert">
               <h3 className="text-2xl font-semibold mb-4">No events found</h3>
               <p className="text-zinc-400 mb-6">
                 No events match your current filters. Try adjusting your search criteria.
@@ -243,6 +265,7 @@ const EventsPage: React.FC = () => {
               <button 
                 className="btn btn-primary"
                 onClick={clearFilters}
+                title="Clear all filters"
               >
                 Clear All Filters
               </button>
@@ -254,22 +277,30 @@ const EventsPage: React.FC = () => {
               </h2>
               
               {isGridView ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div 
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" 
+                  aria-label="Events grid view"
+                >
                   {filteredEvents.map(event => (
                     <EventCard key={event.id} event={event} />
                   ))}
                 </div>
               ) : (
-                <div className="space-y-4">
+                <ul 
+                  className="space-y-4"
+                  aria-label="Events list view"
+                >
                   {filteredEvents.map(event => (
-                    <EventListItem key={event.id} event={event} />
+                    <li key={event.id}>
+                      <EventListItem event={event} />
+                    </li>
                   ))}
-                </div>
+                </ul>
               )}
             </>
           )}
         </div>
-      </section>
+      </section>  
     </div>
   );
 };

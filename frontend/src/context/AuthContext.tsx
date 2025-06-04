@@ -1,17 +1,20 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { signInWithPopup, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { auth, googleProvider } from '../config/firebase';
 
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
-  login: (email: string, password: string) => void;
-  register: (name: string, email: string, password: string) => void;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 interface User {
   id: string;
   name: string;
-  email: string;
+  email: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,48 +27,85 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
 
-  // Check if user is already logged in
   useEffect(() => {
-    const storedUser = localStorage.getItem('partytracker_user');
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
-      setIsAuthenticated(true);
-    }
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        const user: User = {
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName || 'User',
+          email: firebaseUser.email
+        };
+        setUser(user);
+        setIsAuthenticated(true);
+      } else {
+        setUser(null);
+        setIsAuthenticated(false);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const login = (email: string, _password: string) => {
-    // In a real app, we would make an API call here
-    // For this demo, we'll simulate a successful login
-    const mockUser = {
-      id: 'user1',
-      name: 'Demo User',
-      email: email
-    };
-    
-    setUser(mockUser);
-    setIsAuthenticated(true);
-    localStorage.setItem('partytracker_user', JSON.stringify(mockUser));
+  const login = async (email: string, password: string) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const firebaseUser = userCredential.user;
+      const user: User = {
+        id: firebaseUser.uid,
+        name: firebaseUser.displayName || 'User',
+        email: firebaseUser.email
+      };
+      setUser(user);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
   };
 
-  const register = (name: string, email: string, _password: string) => {
-    // In a real app, we would make an API call here
-    // For this demo, we'll simulate a successful registration
-    const mockUser = {
-      id: 'user1',
-      name: name,
-      email: email
-    };
-    
-    setUser(mockUser);
-    setIsAuthenticated(true);
-    localStorage.setItem('partytracker_user', JSON.stringify(mockUser));
+  const register = async (name: string, email: string, password: string) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const firebaseUser = userCredential.user;
+      const user: User = {
+        id: firebaseUser.uid,
+        name: name,
+        email: firebaseUser.email
+      };
+      setUser(user);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Registration error:', error);
+      throw error;
+    }
   };
 
-  const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    localStorage.removeItem('partytracker_user');
+  const loginWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const firebaseUser = result.user;
+      const user: User = {
+        id: firebaseUser.uid,
+        name: firebaseUser.displayName || 'User',
+        email: firebaseUser.email
+      };
+      setUser(user);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('Google login error:', error);
+      throw error;
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error('Logout error:', error);
+      throw error;
+    }
   };
 
   const value = {
@@ -73,6 +113,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     login,
     register,
+    loginWithGoogle,
     logout
   };
 
