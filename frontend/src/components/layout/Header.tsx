@@ -23,6 +23,8 @@ const Header: React.FC = () => {
     setIsOpen(false);
   }, [location]);
 
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <header 
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -34,8 +36,8 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 relative z-50">
-            <PartyPopper className="h-8 w-8 text-purple-500" />
+          <Link to="/" className="flex items-center space-x-2 relative z-50 group transition-transform duration-200 hover:scale-105">
+            <PartyPopper className="h-8 w-8 text-purple-500 transform transition-transform group-hover:rotate-12" />
             <span className="text-2xl font-bold text-white">
               Party<span className="text-purple-500">Tracker</span>
             </span>
@@ -43,10 +45,25 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <NavLink to="/" exact>Home</NavLink>
-            <NavLink to="/events">Events</NavLink>
-            <NavLink to="/clubs">Clubs</NavLink>
-            <NavLink to="/student-zone">Student Zone</NavLink>
+            {[
+              { path: '/', label: 'Home' },
+              { path: '/events', label: 'Events' },
+              { path: '/clubs', label: 'Clubs' },
+              { path: '/student-zone', label: 'Student Zone' }
+            ].map(({ path, label }) => (
+              <Link
+                key={path}
+                to={path}
+                className={`relative py-2 px-1 transition-colors duration-200 group ${
+                  isActive(path) ? 'text-white' : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                {label}
+                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-purple-500 transform transition-transform duration-200 ${
+                  isActive(path) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`}></span>
+              </Link>
+            ))}
           </nav>
 
           {/* User Actions */}
@@ -54,21 +71,21 @@ const Header: React.FC = () => {
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
                 <button 
-                  className="text-zinc-400 hover:text-white transition"
+                  className="text-zinc-400 hover:text-white hover:scale-110 transition-all duration-200"
                   title="Notifications"
                 >
                   <Bell className="h-6 w-6" />
                 </button>
                 <Link 
                   to="/profile" 
-                  className="flex items-center space-x-2 text-white hover:text-purple-400 transition"
+                  className="flex items-center space-x-2 text-white hover:text-purple-400 hover:scale-105 transition-all duration-200"
                 >
                   <User className="h-6 w-6" />
                   <span>Profile</span>
                 </Link>
                 <button 
                   onClick={logout}
-                  className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition"
+                  className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/20 hover:-translate-y-0.5"
                 >
                   Logout
                 </button>
@@ -77,13 +94,13 @@ const Header: React.FC = () => {
               <div className="flex items-center space-x-4">
                 <Link 
                   to="/auth/login"
-                  className="text-white hover:text-purple-400 transition"
+                  className="text-white hover:text-purple-400 transition-all duration-200 hover:scale-105"
                 >
                   Login
                 </Link>
                 <Link 
                   to="/auth/register"
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/20 hover:-translate-y-0.5"
                 >
                   Sign Up
                 </Link>
@@ -94,7 +111,7 @@ const Header: React.FC = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden relative z-50 text-white hover:text-purple-400 transition"
+            className="md:hidden relative z-50 text-white hover:text-purple-400 hover:scale-110 transition-all duration-200"
             title={isOpen ? "Close menu" : "Open menu"}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -166,31 +183,6 @@ const Header: React.FC = () => {
         </div>
       </div>
     </header>
-  );
-};
-
-// NavLink component for active state styles
-const NavLink: React.FC<{ to: string; exact?: boolean; children: React.ReactNode }> = ({ 
-  to, 
-  exact = false, 
-  children 
-}) => {
-  const location = useLocation();
-  const isActive = exact 
-    ? location.pathname === to 
-    : location.pathname.startsWith(to);
-
-  return (
-    <Link 
-      to={to} 
-      className={`transition ${
-        isActive 
-          ? 'text-purple-400 font-medium' 
-          : 'text-white hover:text-purple-400'
-      }`}
-    >
-      {children}
-    </Link>
   );
 };
 
