@@ -312,3 +312,8 @@ Do a final polish, update the README, and submit everything
 
 
 mongodb pass AeIweb5dZpmYA0b4
+
+
+
+
+frontend deplyment:  earnest-cajeta-81d266.netlify.app
